@@ -9,6 +9,7 @@ import { YoutubeService } from '../../services/youtube.service';
 export class NavbarComponent implements OnInit {
 
   results: any []
+  resultSelected: any = ""
   urlVideo: string  = "https://www.youtube.com/embed/"
   urlFinal: string
   constructor(private youtubeService: YoutubeService) {
@@ -22,13 +23,15 @@ export class NavbarComponent implements OnInit {
       this.results = data
       let idVideo = this.results[0]['id']['videoId']
       this.urlFinal = `${this.urlVideo}${idVideo}`
-      
+      this.resultSelected = this.results[0]
     })
 
   }
       showVideo(i: number){
         let idVideo = this.results[i]['id']['videoId']
         this.urlFinal = `${this.urlVideo}${idVideo}`
+        this.resultSelected = this.results[i]
+
         console.log(this.urlVideo);
         
       }
