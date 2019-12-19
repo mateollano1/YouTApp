@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VideosFoundComponent } from './components/videos-found/videos-found.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { VideoSelectedComponent } from './components/video-selected/video-selected.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     VideosFoundComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    VideoSelectedComponent
   ],
   imports: [
     BrowserModule,

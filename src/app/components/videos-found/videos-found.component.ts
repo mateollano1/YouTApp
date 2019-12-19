@@ -12,7 +12,7 @@ export class VideosFoundComponent implements OnInit {
   results: any[]
   imgs: string[] = []
   imgsCarousel: string[] = []
-  
+
   resultSelected: any = ""
   urlVideo: string = "https://www.youtube.com/embed/"
   urlFinal: string
@@ -32,7 +32,7 @@ export class VideosFoundComponent implements OnInit {
    * Search the word in the youtube api
    * @param word 
    */
-  search(word: any){
+  search(word: any) {
     this.youtubeService.getVideos(word).subscribe(data => {
       this.results = data
       this.initialMessage = false
@@ -48,9 +48,9 @@ export class VideosFoundComponent implements OnInit {
    * Set the carousel to movil view
    */
   setCarousel() {
-    this.imgs =[]
+    this.imgs = []
     for (let index = 0; index < this.results.length; index++) {
-      const element = this.results[index]['snippet']['thumbnails']['medium']['url'];
+      const element = this.results[index]['snippet']['thumbnails']['high']['url'];
       this.imgs.push(element)
     }
   }
@@ -111,25 +111,28 @@ export class VideosFoundComponent implements OnInit {
    * Update and shoe info about a video selected in movil view
    * @param i 
    */
-  showVideoCarousel(i: number){
+  showVideoCarousel(i: number) {
     console.log(this.imgsCarousel[i]);
     let imgUrl = this.imgsCarousel[i]
     let idVideo = "";
     console.log(this.results);
-    
+    this.urlFinal =""
+    this.resultSelected = ""
     for (let index = 0; index < this.results.length; index++) {
-      const element = this.results[index]['snippet']['thumbnails']['medium']['url'];
+      const element = this.results[index]['snippet']['thumbnails']['high']['url'];
       console.log(element);
-      
+
       if (element == imgUrl) {
         console.log("entre");
         idVideo = this.results[index]['id']['videoId']
         console.log(idVideo);
-        
+
         this.urlFinal = `${this.urlVideo}${idVideo}`
         console.log(this.urlFinal);
-        
+
         this.resultSelected = this.results[index]
+        console.log(this.resultSelected);
+        
       }
     }
   }
@@ -139,12 +142,8 @@ export class VideosFoundComponent implements OnInit {
    * @param event 
    */
   onResize() {
-     this.size = window.innerWidth;
-    console.log(this.size);
-
-    if (this.size + 39 < 768) {  
-      console.log("in");
-      
+    this.size = window.innerWidth;
+    if (this.size < 768) {
       this.carouselView = true
       this.rightCarousel()
     } else {

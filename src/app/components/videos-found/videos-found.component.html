@@ -1,58 +1,38 @@
 <app-navbar (wordToSearch)="search($event)"></app-navbar>
 
 <div class="container-fluid" *ngIf="!initialMessage">
+    <div class="row">
+        <h5 class="recomend">Videos recomendados</h5>
 
-
-        <div class="row">
-            <h5 class="recomend">Videos recomendados</h5>
-    
-            <div class="col-12" (window:resize)="onResize($event)">
-                <div class="card-deck" *ngIf="!carouselView">
-                    <!-- 4 of these -->
-                    <div class="card" *ngFor="let item of results;let i = index">
-                        <img src="{{item.snippet.thumbnails.high.url}}"  (click)="showVideo(i)" class="pro">
-                    </div>
-                </div>
-                <div class="col-12 mt mb" (window:resize)="onResize()" *ngIf="carouselView" >
-                    <div class="row">
-                        <div class="col-12" style="text-align: center;">
-                            <button class="transparent" (click)="leftCarousel()" style="margin-right: 1em;"><i class="fa fa-chevron-left fa-2x"></i></button>
-                            <img *ngFor="let item of imgsCarousel; let i = index" (click)="showVideoCarousel(i)" [src]="item | safeUrl" (click)="showVideo(i)" class="img-fluid ">
-                            <button class="transparent" (click)="rightCarousel()" style="margin-left: 1em;"><i class="fa fa-chevron-right fa-2x"></i></button>
-                            
-                        </div>
-                    </div>
-                </div>
-    
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-5 ">
-                <div class="card" style="background-color: #333333; margin-left: 1em;">
-                    <div class="card-body">
-                        <iframe width="100%" height="100%" style="min-height: 300px;" [src]="urlFinal | safeUrl">
-                        </iframe>
-                    </div>
+        <div class="col-12" (window:resize)="onResize($event)">
+            <div class="card-deck" *ngIf="!carouselView">
+                <div class="card" *ngFor="let item of results;let i = index">
+                    <img src="{{item.snippet.thumbnails.high.url}}" (click)="showVideo(i)" class="pro">
                 </div>
             </div>
-            <div class="col-xs-12 col-md-5 ">
-                <div class="card comforta">
-                    <div class="card-body">
-                        <h5 class="card-title">{{resultSelected?.snippet?.title}}</h5>
-                        <p class="card-text">{{resultSelected?.snippet?.description}}</p>
-                        <div class="col-md-12" style="text-align: right;">
-                            <h6>Publicado: {{resultSelected?.snippet?.publishedAt | date}}</h6>
-                        </div>
+            <div class="col-12 mt mb" (window:resize)="onResize()" *ngIf="carouselView">
+                <div class="row">
+                    <div class="col-12" style="text-align: center;">
+                        <button class="transparent" (click)="leftCarousel()" style="margin-right: 1em;"><i
+                                class="fa fa-chevron-left fa-2x"></i></button>
+                        <img *ngFor="let item of imgsCarousel; let i = index" (click)="showVideoCarousel(i)"
+                            [src]="item | safeUrl" (click)="showVideo(i)" class="img-fluid ">
+                        <button class="transparent" (click)="rightCarousel()" style="margin-left: 1em;"><i
+                                class="fa fa-chevron-right fa-2x"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <app-video-selected [resultSelected] ="resultSelected" [urlFinal] = "urlFinal"></app-video-selected>
+</div>
+
 <div class="container-fluid center " *ngIf="initialMessage">
 
     <div class="col-md-10 center mt">
-            <div class="alert " style="background-color: #a1cb00;" role="alert">
-                   Bienvenido, para reproducir los resultados de una búsqueda, ingrese la palabra que desea, y luego seleccione el video.
-                  </div>
+        <div class="alert comforta" style="background-color: #a1cb00;" role="alert">
+            Bienvenido, para reproducir los resultados de una búsqueda, ingrese la palabra que desea, y luego seleccione
+            el video.
+        </div>
     </div>
 </div>
