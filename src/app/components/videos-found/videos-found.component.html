@@ -1,58 +1,58 @@
-<div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2" data-ride="carousel">
+<app-navbar (wordToSearch)="search($event)"></app-navbar>
 
-    <!--Controls-->
-    <div class="controls-top">
-        <a class="btn-floating" href="#carousel-example-multi" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
-        <a class="btn-floating" href="#carousel-example-multi" data-slide="next"><i
-                class="fas fa-chevron-right"></i></a>
-    </div>
-    <!--/.Controls-->
+<div class="container-fluid" *ngIf="!initialMessage">
 
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-multi" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-multi" data-slide-to="1"></li>
-        <li data-target="#carousel-example-multi" data-slide-to="2"></li>
-        <li data-target="#carousel-example-multi" data-slide-to="3"></li>
-        <li data-target="#carousel-example-multi" data-slide-to="4"></li>
-        <li data-target="#carousel-example-multi" data-slide-to="5"></li>
-    </ol>
-    <!--/.Indicators-->
 
-    <div class="carousel-inner v-2" role="listbox">
-
-        <div class="carousel-item active">
-            <div class="col-12 col-md-4">
-                <div class="card mb-2">
-                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/img (36).jpg"
-                        alt="Card image cap">
+        <div class="row">
+            <h5 class="recomend">Videos recomendados</h5>
+    
+            <div class="col-12" (window:resize)="onResize($event)">
+                <div class="card-deck" *ngIf="!carouselView">
+                    <!-- 4 of these -->
+                    <div class="card" *ngFor="let item of results;let i = index">
+                        <img src="{{item.snippet.thumbnails.high.url}}"  (click)="showVideo(i)" class="pro">
+                    </div>
+                </div>
+                <div class="col-12 mt mb" (window:resize)="onResize()" *ngIf="carouselView" >
+                    <div class="row">
+                        <div class="col-12" style="text-align: center;">
+                            <button class="transparent" (click)="leftCarousel()" style="margin-right: 1em;"><i class="fa fa-chevron-left fa-2x"></i></button>
+                            <img *ngFor="let item of imgsCarousel; let i = index" (click)="showVideoCarousel(i)" [src]="item | safeUrl" (click)="showVideo(i)" class="img-fluid ">
+                            <button class="transparent" (click)="rightCarousel()" style="margin-left: 1em;"><i class="fa fa-chevron-right fa-2x"></i></button>
+                            
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-5 ">
+                <div class="card" style="background-color: #333333; margin-left: 1em;">
                     <div class="card-body">
-                        <h4 class="card-title font-weight-bold">Card title</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a class="btn btn-primary btn-md btn-rounded">Button</a>
+                        <iframe width="100%" height="100%" style="min-height: 300px;" [src]="urlFinal | safeUrl">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-5 ">
+                <div class="card comforta">
+                    <div class="card-body">
+                        <h5 class="card-title">{{resultSelected?.snippet?.title}}</h5>
+                        <p class="card-text">{{resultSelected?.snippet?.description}}</p>
+                        <div class="col-md-12" style="text-align: right;">
+                            <h6>Publicado: {{resultSelected?.snippet?.publishedAt | date}}</h6>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<div class="container-fluid center " *ngIf="initialMessage">
 
+    <div class="col-md-10 center mt">
+            <div class="alert " style="background-color: #a1cb00;" role="alert">
+                   Bienvenido, para reproducir los resultados de una búsqueda, ingrese la palabra que desea, y luego seleccione el video.
+                  </div>
+    </div>
 </div>
-<script>
-    $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function () {
-        var next = $(this).next();
-        if (!next.length) {
-            next = $(this).siblings(':first');
-        }
-        next.children(':first-child').clone().appendTo($(this));
-
-        for (var i = 0; i < 4; i++) {
-            next = next.next();
-            if (!next.length) {
-                next = $(this).siblings(':first');
-            }
-            next.children(':first-child').clone().appendTo($(this));
-        }
-    });
-</script>

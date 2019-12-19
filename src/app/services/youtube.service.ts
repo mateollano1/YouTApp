@@ -17,7 +17,7 @@ export class YoutubeService {
       set('part', 'snippet').
       set('maxResults', '6').
       set('key', 'AIzaSyBAI0NC5rorx8iNrJIsaNsL2c-ngKQ_93U').
-      set('q', 'canto')
+      set('q', searchWord)
     console.log(params.toString())
     return this.http.get("https://www.googleapis.com/youtube/v3/search", { params }).pipe(map((res: any) => {
       return res['items']

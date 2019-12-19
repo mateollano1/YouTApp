@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md " style="background-color: #1abc9c">
     <img src="../../../assets/imgs/experimentalitycerebro.png" height="42" width="42">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,45 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Experimentality <span class="sr-only">(current)</span></a>
+                <h4 class="headTitle comforta">Experimentality</h4>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-        </form>
+            <div class="form-inline my-2 my-lg-0">
+                <input class=" mr-sm-2" (keyup.enter)="search(word.value)"  placeholder="Buscar" aria-label="Search" #word>
+            </div>
     </div>
 </nav>
-
-<h5 class="recomend">Videos recomendados</h5>
-<div class="table-responsive">
-    <div class="cont">
-        <div class="row">
-            <div class="card-group">
-                <div class="card" *ngFor="let item of results;let i = index">
-                    <img src="{{item.snippet.thumbnails.high.url}}" (click)="showVideo(i)" class="cor">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6 col-xs-12">
-        <div class="card">
-            <div class="card-body">
-                <iframe width="100%" height="100%" style="min-height: 300px;"
-                   [src] = "urlFinal | safeUrl">
-                </iframe>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-5 col-xs-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{resultSelected?.snippet?.title}}</h5>
-                <p class="card-text">{{resultSelected?.snippet?.description}}</p>
-                <h6>Publicado: {{resultSelected?.snippet?.publishedAt | date}}</h6>
-            </div>
-        </div>
-    </div>
-</div>
